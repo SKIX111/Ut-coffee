@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+ 
+}
+model Usuario {
+  id         Int      @id @default(autoincrement())
+  nombre     String
+  direccion  String
+  telefono   String
+  correo     String   @unique
+  pedidos    Pedido[] 
+}
+
+
+model Restaurante {
+  id           Int      @id @default(autoincrement())
+  nombre       String
+  ubicacion    String
+  tipoComida   String
+  productos    Producto[]
+}
+
+
+model Producto {
+  id             Int        @id @default(autoincrement())
+  nombre         String
+  descripcion    String
+  precio         Float
+  restaurante    Restaurante @relation(fields: [restauranteId], references: [id])
+  restauranteId  Int
+  detallesPedido DetallePedido[]
+}
+
+
+model Pedido {
+  id            Int        @id @default(autoincrement())
+  fecha         DateTime
+  estado        String
+  usuario       Usuario    @relation(fields: [usuarioId], references: [id])
+  usuarioId     Int
+  detallesPedido DetallePedido[]
+}
+
+model DetallePedido {
+  id            Int        @id @default(autoincrement())
+  cantidad      Int
+  producto      Producto   @relation(fields: [productoId], references: [id])
+  productoId    Int
+  pedido        Pedido     @relation(fields: [pedidoId], references: [id])
+  pedidoId      Int
+}
