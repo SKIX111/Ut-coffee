@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 
-const ServiciosScreen = () => {
+const Servicios1Screen = ({navigation}) => {
   const [searchText, setSearchText] = useState('');
 
   return (
@@ -21,45 +21,34 @@ const ServiciosScreen = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.section}>
-        <Image
-          source={require('../../assets/icons/cafe1.jpg')}
-          style={styles.image}
-        />
-        <Text style={styles.title}>Café Espresso</Text>
-        <Text style={styles.description}>Disfruta de nuestro delicioso café expresso recién preparado</Text>
+        <View style={styles.imageContainer}>
+          <Image
+            source={require('../../assets/icons/res 1.jpg')}
+            style={styles.image}
+          />
+        </View>
+        <Text style={styles.title} onPress={() => navigation.navigate('vista1')}>Doña Eloiza →</Text>
+        <Text style={styles.description}>La mejor comida rica y barata</Text>
       </View>
       <View style={styles.section}>
-        <Image
-          source={require('../../assets/icons/cafe2.jpg')}
-          style={styles.image}
-        />
-        <Text style={styles.title}>Bocadillos</Text>
-        <Text style={styles.description}>Prueba nuestros bocadillos artesanales, perfectos para acompañar tu café</Text>
+        <View style={styles.imageContainer}>
+          <Image
+            source={require('../../assets/icons/res 3.jpg')}
+            style={styles.image}
+          />
+        </View>
+        <Text style={styles.title} onPress={() => navigation.navigate('vista1')}>Cafetería UT →</Text>
+        <Text style={styles.description}>Comida a un precio muy bueno</Text>
       </View>
       <View style={styles.section}>
-        <Image
-          source={require('../../assets/icons/cafe3.jpg')}
-          style={styles.image}
-        />
-        <Text style={styles.title}>Postres Caseros</Text>
-        <Text style={styles.description}>Déjate tentar por nuestra selección de postres caseros y dulces</Text>
-      </View>
-      
-      <View style={styles.section}>
-        <Image
-          source={require('../../assets/icons/cafe4.jpg')}
-          style={styles.image}
-        />
-        <Text style={styles.title}>Comida</Text>
-        <Text style={styles.description}>Descubre nuestra variedad de platos principales</Text>
-      </View>
-      <View style={styles.section}>
-        <Image
-          source={require('../../assets/icons/cafe5.jpg')}
-          style={styles.image}
-        />
-        <Text style={styles.title}>Bebidas</Text>
-        <Text style={styles.description}>Refrescantes bebidas para acompañar tu comida</Text>
+        <View style={styles.imageContainer}>
+          <Image
+            source={require('../../assets/icons/res 2.jpg')}
+            style={styles.image}
+          />
+        </View>
+        <Text style={styles.title} onPress={() => navigation.navigate('vista2')}>Doña Carmelita →</Text>
+        <Text style={styles.description}>La mejor comida que comer</Text>
       </View>
     </ScrollView>
   );
@@ -121,11 +110,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
-  image: {
+  imageContainer: {
     width: 200,
     height: 200,
     borderRadius: 10,
+    overflow: 'hidden',
     marginBottom: 10,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
   },
   title: {
     fontSize: 24,
@@ -140,4 +134,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ServiciosScreen;
+export default Servicios1Screen;

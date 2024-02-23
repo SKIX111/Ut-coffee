@@ -39,12 +39,8 @@ const CrearScreen = ({navigation}) => {
           placeholder="Repite la contraseña"
           secureTextEntry={true}
         />
-        
-        
-       
-           
-        
-        <TouchableOpacity onPress={() => navigation.navigate('vista') }  style={styles.button}>
+
+        <TouchableOpacity onPress={() => navigation.navigate('login') }  style={styles.button}>
   <Text style={[styles.text, {textAlign: 'center'}]}>Crear cuenta</Text>
       </TouchableOpacity>
   
