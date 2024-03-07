@@ -22,12 +22,7 @@ const LoginScreen = ({navigation}) => {
           style={styles.input}
           placeholder="Contraseña"
           secureTextEntry={true}
-        />
-        
-      
-       
-  
-     
+        />   
 
          <TouchableOpacity onPress={() => navigation.navigate('crear')}>
           <Text style={styles.link}>Crear una cuenta</Text>
@@ -61,11 +56,13 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     padding:100,
     shadowColor: '#000',
+    
   },
   logo: {
     width: 250,
     height: 250,
     alignSelf: 'center',
+   
   },
   titulo: {
     marginTop: 5,

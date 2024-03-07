@@ -20,36 +20,36 @@ const Servicios1Screen = ({navigation}) => {
           <Text style={styles.searchButtonText}>Buscar</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.section}>
+      <TouchableOpacity style={styles.cuadro} onPress={() => navigation.navigate('vista1')}>
         <View style={styles.imageContainer}>
           <Image
             source={require('../../assets/icons/res 1.jpg')}
             style={styles.image}
           />
         </View>
-        <Text style={styles.title} onPress={() => navigation.navigate('vista1')}>Doña Eloiza →</Text>
+        <Text style={styles.title}>Doña Eloiza →</Text>
         <Text style={styles.description}>La mejor comida rica y barata</Text>
-      </View>
-      <View style={styles.section}>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.cuadro} onPress={() => navigation.navigate('vista1')}>
         <View style={styles.imageContainer}>
           <Image
             source={require('../../assets/icons/res 3.jpg')}
             style={styles.image}
           />
         </View>
-        <Text style={styles.title} onPress={() => navigation.navigate('vista1')}>Cafetería UT →</Text>
+        <Text style={styles.title}>Cafetería UT →</Text>
         <Text style={styles.description}>Comida a un precio muy bueno</Text>
-      </View>
-      <View style={styles.section}>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.cuadro} onPress={() => navigation.navigate('vista2')}>
         <View style={styles.imageContainer}>
           <Image
             source={require('../../assets/icons/res 2.jpg')}
             style={styles.image}
           />
         </View>
-        <Text style={styles.title} onPress={() => navigation.navigate('vista2')}>Doña Carmelita →</Text>
+        <Text style={styles.title}>Doña Carmelita →</Text>
         <Text style={styles.description}>La mejor comida que comer</Text>
-      </View>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 16,
   },
-  section: {
+  cuadro: {
     backgroundColor: '#ffffff',
     borderRadius: 10,
     marginBottom: 20,
@@ -109,7 +109,9 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 3,
+     
   },
+  
   imageContainer: {
     width: 200,
     height: 200,
