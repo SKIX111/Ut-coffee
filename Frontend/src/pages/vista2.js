@@ -1,10 +1,30 @@
 import React, { useState } from 'react';
 import { View, Text, Image, ScrollView, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 
-const ServiciosScreen2 = () => {
+const ServiciosScreen = () => {
   const [searchText, setSearchText] = useState('');
+  const [cartItems, setCartItems] = useState([]);
+
+  const precios = {
+    "Café Espresso": "$20",
+    "Bocadillos": "$25",
+    "Postres Caseros": "$30",
+    "Comida": "$40",
+    "Bebidas": "$19"
+  };
+
+  const addItemToCart = (itemName, price) => {
+    setCartItems([...cartItems, { itemName, price }]);
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
+  const totalPrice = cartItems.reduce((acc, item) => acc + parseFloat(item.price.replace('$', '')), 0);
 
   return (
+    <View style={styles.con}>
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
         <Text style={styles.appName}>UT-COFFEES</Text>
@@ -22,50 +42,87 @@ const ServiciosScreen2 = () => {
       </View>
       <View style={styles.section}>
         <Image
-          source={require('../../assets/icons/Café Latte.jpg')}
+          source={require('../../assets/icons/cafe1.jpg')}
           style={styles.image}
         />
-        <Text style={styles.title}>Café Latte</Text>
-        <Text style={styles.description}>Disfruta de nuestro delicioso café latte recién preparado</Text>
+        <Text style={styles.title}>Café Espresso</Text>
+        <Text style={styles.description}>Disfruta de nuestro delicioso café expresso recién preparado</Text>
+        <Text style={styles.price}>Precio: {precios["Café Espresso"]}</Text>
+        <TouchableOpacity style={[styles.searchButton, { backgroundColor: '#8d4925' }]} onPress={() => addItemToCart("Café Espresso", precios["Café Espresso"])}>
+          <Text style={styles.searchButtonText}>Comprar</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.section}>
         <Image
-          source={require('../../assets/icons/Croissants.jpg')}
+          source={require('../../assets/icons/cafe2.jpg')}
           style={styles.image}
         />
-        <Text style={styles.title}>Croissants</Text>
-        <Text style={styles.description}>Prueba nuestros croissants artesanales, perfectos para acompañar tu café</Text>
+        <Text style={styles.title}>Bocadillos</Text>
+        <Text style={styles.description}>Prueba nuestros bocadillos artesanales, perfectos para acompañar tu café</Text>
+        <Text style={styles.price}>Precio: {precios["Bocadillos"]}</Text>
+        <TouchableOpacity style={[styles.searchButton, { backgroundColor: '#8d4925' }]} onPress={() => addItemToCart("Bocadillos", precios["Bocadillos"])}>
+          <Text style={styles.searchButtonText}>Comprar</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.section}>
         <Image
-          source={require('../../assets/icons/Tarta de Manzana.jpg')}
+          source={require('../../assets/icons/cafe3.jpg')}
           style={styles.image}
         />
-        <Text style={styles.title}>Tarta de Manzana</Text>
-        <Text style={styles.description}>Déjate tentar por nuestra deliciosa tarta de manzana casera</Text>
-      </View>
-      
-      <View style={styles.section}>
-        <Image
-          source={require('../../assets/icons/Pasta.jpg')}
-          style={styles.image}
-        />
-        <Text style={styles.title}>Pasta</Text>
-        <Text style={styles.description}>Descubre nuestra variedad de platos de pasta</Text>
+        <Text style={styles.title}>Postres Caseros</Text>
+        <Text style={styles.description}>Déjate tentar por nuestra selección de postres caseros y dulces</Text>
+        <Text style={styles.price}>Precio: {precios["Postres Caseros"]}</Text>
+        <TouchableOpacity style={[styles.searchButton, { backgroundColor: '#8d4925' }]} onPress={() => addItemToCart("Postres Caseros", precios["Postres Caseros"])}>
+          <Text style={styles.searchButtonText}>Comprar</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.section}>
         <Image
-          source={require('../../assets/icons/Smoothies.jpg')}
+          source={require('../../assets/icons/cafe4.jpg')}
           style={styles.image}
         />
-        <Text style={styles.title}>Smoothies</Text>
-        <Text style={styles.description}>Refrescantes smoothies para acompañar tu comida</Text>
+        <Text style={styles.title}>Comida</Text>
+        <Text style={styles.description}>Descubre nuestra variedad de platos principales</Text>
+        <Text style={styles.price}>Precio: {precios["Comida"]}</Text>
+        <TouchableOpacity style={[styles.searchButton, { backgroundColor: '#8d4925' }]} onPress={() => addItemToCart("Comida", precios["Comida"])}>
+          <Text style={styles.searchButtonText}>Comprar</Text>
+        </TouchableOpacity>
       </View>
+      <View style={styles.section}>
+        <Image
+          source={require('../../assets/icons/cafe5.jpg')}
+          style={styles.image}
+        />
+        <Text style={styles.title}>Bebidas</Text>
+        <Text style={styles.description}>Refrescantes bebidas para acompañar tu comida</Text>
+        <Text style={styles.price}>Precio: {precios["Bebidas"]}</Text>
+        <TouchableOpacity style={[styles.searchButton, { backgroundColor: '#8d4925' }]} onPress={() => addItemToCart("Bebidas", precios["Bebidas"])}>
+          <Text style={styles.searchButtonText}>Comprar</Text>
+        </TouchableOpacity>
+      </View>
+    
     </ScrollView>
+    
+    <View style={styles.cartContainer}>
+        <Text style={styles.cartTitle}>Carrito de Compras</Text>
+        {cartItems.map((item, index) => (
+          <Text key={index} style={styles.cartItem}>{item.itemName}: {item.price}</Text>
+        ))}
+        <Text style={styles.total}>Total: ${totalPrice.toFixed(2)}</Text>
+        <TouchableOpacity style={styles.clearButton} onPress={clearCart}>
+          <Text style={styles.clearButtonText}>Limpiar Carrito</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+
+  con:{
+flex:1,
+alignItems:'center'
+  },
   container: {
     flexGrow: 1,
     alignItems: 'center',
@@ -107,12 +164,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   section: {
+    width: 350, 
+    height: 260,
     backgroundColor: '#ffffff',
     borderRadius: 10,
     marginBottom: 20,
     padding: 20,
     alignItems: 'center',
-    elevation: 3,
     shadowColor: '#000000',
     shadowOffset: {
       width: 0,
@@ -122,8 +180,8 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   image: {
-    width: 200,
-    height: 200,
+    width: 90,
+    height: 90,
     borderRadius: 10,
     marginBottom: 10,
   },
@@ -138,6 +196,49 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
   },
+  price: {
+    textAlign: 'center',
+    color: '#8d4925',
+    fontWeight: 'bold',
+    marginTop: 5,
+  },
+  cartContainer: {
+    marginTop: 20,
+    paddingHorizontal: 20,
+    borderTopWidth: 1,
+    borderTopColor: '#8d4925',
+  },
+  cartTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#8d4925',
+    textAlign: 'auto'
+  },
+  cartItem: {
+    fontSize: 16,
+    marginBottom: 5,
+    color: '#333333',
+  },
+  total: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 10,
+    color: '#8d4925',
+  },
+  clearButton: {
+    backgroundColor: '#8d4925',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 25,
+    marginTop: 10,
+    marginBottom:20,
+  },
+  clearButtonText: {
+    color: '#ffffff',
+    fontSize: 16,
+    textAlign: 'center',
+  },
 });
 
-export default ServiciosScreen2;
+export default ServiciosScreen;

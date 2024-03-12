@@ -107,7 +107,6 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     marginTop: 20,
     backgroundColor: '#8d4925',
-    
   },
   
  
