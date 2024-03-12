@@ -26,7 +26,7 @@ const CrearScreen = ({navigation}) => {
         />
          <TextInput
           style={styles.input}
-          placeholder="fecha de nacimiento"
+          placeholder="direccion"
       
         />
         <TextInput
