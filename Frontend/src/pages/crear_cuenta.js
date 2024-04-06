@@ -1,9 +1,44 @@
-import React from 'react';
-import { View, Text, Image, ScrollView, TextInput, StyleSheet, Alert, Button, TouchableOpacity, Linking } from 'react-native';
-import Boton from '../components/boton';
+import React, { useState } from 'react';
+import { View, Text, Image, ScrollView, TextInput, StyleSheet, Alert,  TouchableOpacity } from 'react-native';
 
-const CrearScreen = ({navigation}) => {
+const CrearScreen = ({ navigation }) => {
+  const [nombre, setNombre] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [direccion, setDireccion] = useState('');
  
+
+  const handleCrearCuenta = async () => {
+    try {
+     
+      const response = await fetch('http://localhost:3000/u/usuarios', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nombre: nombre,
+          direccion: direccion,
+          telefono: correo, 
+          correo: correo,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Usuario creado:', data);
+        Alert.alert('Éxito', 'Usuario creado correctamente');
+        navigation.navigate('login');
+      } else {
+        const errorData = await response.json();
+        console.error('Error al crear usuario:', errorData);
+        Alert.alert('Error', 'Error al crear usuario');
+      }
+    } catch (error) {
+      console.error('Error al realizar la solicitud:', error);
+      Alert.alert('Error', 'Error al realizar la solicitud');
+    }
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.contenedor}>
       <View style={styles.cuadro}>
@@ -14,44 +49,42 @@ const CrearScreen = ({navigation}) => {
           style={styles.logo}
         />
         <Text style={styles.titulo}>UT-COFFEES</Text>
+
         <TextInput
           style={styles.input}
           placeholder="Nombre y apellido"
+          value={nombre}
+          onChangeText={setNombre}
         />
-         
         <TextInput
           style={styles.input}
-          placeholder="correo o numero"
-    
+          placeholder="Correo electrónico"
+          value={correo}
+          onChangeText={setCorreo}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Dirección"
+          value={direccion}
+          onChangeText={setDireccion}
         />
          <TextInput
           style={styles.input}
-          placeholder="direccion"
-      
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Crea una contraseña"
+          placeholder="Contraseña"
           secureTextEntry={true}
         />
          <TextInput
           style={styles.input}
-          placeholder="Repite la contraseña"
+          placeholder="Confirmar contraseña"
           secureTextEntry={true}
         />
 
-        <TouchableOpacity onPress={() => navigation.navigate('login') }  style={styles.button}>
-  <Text style={[styles.text, {textAlign: 'center'}]}>Crear cuenta</Text>
-      </TouchableOpacity>
-  
-     
-
-         <TouchableOpacity onPress={() => navigation.navigate('login')}  >
+        <TouchableOpacity style={styles.button} onPress={handleCrearCuenta}>
+          <Text style={styles.buttonText}>Crear cuenta</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('login')}>
           <Text style={styles.link}>Ya tengo una cuenta</Text>
         </TouchableOpacity>
-
-        <Boton/>
-
       </View>
     </ScrollView>
   );
@@ -65,7 +98,9 @@ const styles = StyleSheet.create({
     height:"100%",
     alignItems: 'center',
   },
-  
+  buttonText: {
+    color: 'white',
+  },
   cuadro: {
     backgroundColor: 'white',
     borderRadius: 30,

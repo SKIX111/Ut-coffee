@@ -1,15 +1,15 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-// async function createPedido(fecha, estado, usuarioId) {
-//   return await prisma.pedido.create({
-//     data: {
-//       fecha: fecha,
-//       estado: estado,
-//       usuarioId: usuarioId
-//     }
-//   });
-// }
+async function createPedido(fecha, estado, usuarioId) {
+  return await prisma.pedido.create({
+    data: {
+      fecha: fecha,
+      estado: estado,
+      usuarioId: usuarioId
+    }
+  });
+}
 
 async function readPedido(id) {
   return await prisma.pedido.findUnique({
@@ -28,22 +28,22 @@ async function updatePedido(id, data) {
   });
 }
 
-// async function deletePedido(id) {
-//   return await prisma.pedido.delete({
-//     where: {
-//       id: id
-//     }
-//   });
-// }
+async function deletePedido(id) {
+  return await prisma.pedido.delete({
+    where: {
+      id: id
+    }
+  });
+}
 
 async function main() {
   try {
     // Crear un nuevo pedido con datos específicos
-    // const fechaPedido = new Date("2024-02-20T19:14:21+02:00"); 
-    // const estadoPedido = "En proceso"; 
-    // const usuarioIdPedido = 1; 
-    // const nuevoPedido = await createPedido(fechaPedido, estadoPedido, usuarioIdPedido);
-    // console.log("Nuevo pedido creado:", nuevoPedido);
+    const fechaPedido = new Date("2024-02-20T19:14:21+02:00"); 
+    const estadoPedido = "En proceso"; 
+    const usuarioIdPedido = 1; 
+    const nuevoPedido = await createPedido(fechaPedido, estadoPedido, usuarioIdPedido);
+    console.log("Nuevo pedido creado:", nuevoPedido);
 
     // Leer un pedido por su ID
     const pedido = await readPedido(5);
@@ -54,8 +54,8 @@ async function main() {
     console.log("Pedido actualizado:", pedidoActualizado);
 
     // Eliminar el pedido
-    // await deletePedido(1);
-    // console.log("Pedido eliminado correctamente.");
+    await deletePedido(5);
+    console.log("Pedido eliminado correctamente.");
   } catch (error) {
     console.error("Error:", error);
   } finally {
@@ -63,4 +63,10 @@ async function main() {
   }
 }
 
-main();
+module.exports = {
+  createPedido,
+  readPedido,
+  updatePedido,
+  deletePedido
+};
+

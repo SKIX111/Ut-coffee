@@ -2,10 +2,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors');
 
-var Crear = require('./model/crearProducto');
 var indexRouter = require('./routes/index');
-
+var usuariRouter = require('./routes/usuario');
 
 var app = express();
 
@@ -16,7 +16,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/crear',indexRouter);
+app.use('/u', usuariRouter);
+
 
 
 module.exports = app;

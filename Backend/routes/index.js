@@ -1,24 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
-
-async function readPedido(id) {
-  return await prisma.pedido.findUnique({
-    where: {
-      id: id
-    }
-  });
-}
-
-async function updatePedido(id, data) {
-  return await prisma.pedido.update({
-    where: {
-      id: id
-    },
-    data: data
-  });
-}
+const { createPedido, readPedido, updatePedido, deletePedido } = require('../model/crearpPedido'); 
 
 router.get('/:id', async function(req, res, next) {
   try {
@@ -40,9 +22,8 @@ router.put('/actualizar/:id', async function(req, res, next) {
 
 router.post('/create', async function(req, res, next) {
   try {
-    const nuevoPedido = await prisma.pedido.create({
-      data: req.body
-    });
+    const { fecha, estado, usuarioId } = req.query; // Lee los datos de los parámetros de la URL
+    const nuevoPedido = await createPedido(new Date(fecha), estado, parseInt(usuarioId)); 
     res.json(nuevoPedido);
   } catch (error) {
     res.status(500).json({ error: 'Error al crear el pedido' });
@@ -51,11 +32,7 @@ router.post('/create', async function(req, res, next) {
 
 router.delete('/eliminar/:id', async function(req, res, next) {
   try {
-    const pedidoEliminado = await prisma.pedido.delete({
-      where: {
-        id: parseInt(req.params.id)
-      }
-    });
+    const pedidoEliminado = await deletePedido(parseInt(req.params.id));
     res.json(pedidoEliminado);
   } catch (error) {
     res.status(500).json({ error: 'Error al eliminar el pedido' });
