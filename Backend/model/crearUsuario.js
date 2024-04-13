@@ -67,4 +67,4 @@ module.exports = {
     readUsuario,
     updateUsuario,
     deleteUsuario
-  };
+  };                

@@ -18,6 +18,7 @@ function Home() {
     <Tab.Navigator>
     <Tab.Screen name="23" component={Servicios1Screen} /> 
      <Tab.Screen name="22" component={ConfiScreen} />
+     
     </Tab.Navigator>
     
   );

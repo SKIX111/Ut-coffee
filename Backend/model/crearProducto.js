@@ -61,5 +61,11 @@ async function main() {
   }
 }
 
-main();
+module.exports = {
+  readProducto,
+  updateProducto,
+  deleteProducto,
+  createProducto
+};
+
 
